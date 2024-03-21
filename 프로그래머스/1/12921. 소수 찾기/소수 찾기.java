@@ -1,25 +1,17 @@
-import java.util.*;
 class Solution {
-    public int solution(int n) {
-        int now = 2;
-        int answer = 0;
-        Set<Long> list = new HashSet<>();
-        
-        // n까지 for문
-        while(now <= n){
-        for(int i = 1;i<=Math.sqrt(now);i++){
-            if(now % i == 0){
-                list.add((long)now);
-                list.add((long)i);
-            }
-            if(list.size() > 2) break;
-        }
-            if(list.size() == 2) answer++;
-        list.clear();
-        now++;
-            
-        }
-        
-        return answer;
-    }
+  public int solution(int n) {
+      int answer = 0;
+      boolean[] check = new boolean[n+1];
+
+      check[0] = check[1] = true;
+      for(int i =2; i*i<n+1; i++){
+          for(int j= i*i; j<n+1; j+=i)
+              check[j] = true;
+      }
+      for(int i=2; i<n+1; i++){
+          if(check[i] == false)
+              answer++;
+      }
+      return answer;
+  }
 }
